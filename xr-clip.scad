@@ -94,7 +94,7 @@ difference(){
 
 module phone(phone_width, phone_length, phone_thickness, phone_edge_radius, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius) {
     sphere_size = (phone_thickness/2);
-    
+
     //color("red") roundedcube2(phone_width, phone_length, phone_thickness, phone_edge_radius);
     //minowski adds spheres around parts, so we need to translate by sphere_size
     translate([sphere_size, sphere_size, sphere_size]) {
@@ -149,18 +149,18 @@ dfm_notch_offset=2.3;
 // mirror
 mirror_height = 25.4; //from spec
 mirror_width = 35.4 + dfm_mirror_width; //from spec -- 36.1 in file?
-mirror_thickness = 3 + dfm_mirror_thickness; //from spec -- 
+mirror_thickness = 3 + dfm_mirror_thickness; //from spec --
 
 // mirror back
-mirror_back_height = 8.4; 
-mirror_back_width = 35.4-4; 
-mirror_back_thickness = 2; 
+mirror_back_height = 8.4;
+mirror_back_width = 35.4-4;
+mirror_back_thickness = 2;
 
 // clip
 clip_width = phone_width*0.66;
 clip_length = 50;
-clip_top_bottom_thickness = 2;
-clip_thickness = phone_thickness+(clip_top_bottom_thickness*2); 
+clip_top_bottom_thickness = 2.5;
+clip_thickness = phone_thickness+(clip_top_bottom_thickness*2);
 
 // clip cutout
 cutout_width = mirror_width-5;
@@ -171,36 +171,36 @@ notch_offset_height = 5.57+5.15+dfm_notch_offset; //notch height from spec, add 
 notch_offset_width = phone_width/2-mirror_width/2;
 back_offset_width = phone_width/2-mirror_back_width/2;
 
-// trim up top length
+//trim up top length
 difference() {
-    //cutout from slot
+  //cutout from slot
     difference() {
-        //clip with back
-        union() {
-         //resulting clip
-         difference() {
-            //clip cube
-             translate([phone_width/2-clip_width/2, -clip_top_bottom_thickness, -clip_top_bottom_thickness]) color("red") roundedcube2(clip_width, clip_length, clip_thickness, 5);
-             //phone and mirror back
-             union() {
-                //phone
-                phone(phone_width, phone_length, phone_thickness, phone_edge_radius, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius);
+      //clip with back
+      union() {
+        //resulting clip
+        difference() {
+          //clip cube
+          translate([phone_width/2-clip_width/2, -clip_top_bottom_thickness, -clip_top_bottom_thickness]) color("red") roundedcube2(clip_width, clip_length, clip_thickness, 5);
+          //phone and mirror back
+          union() {
+            //phone
+            phone(phone_width, phone_length, phone_thickness, phone_edge_radius, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius);
 
-                //mirror slot
-                translate([notch_offset_width,notch_offset_height,0]) {
-                    mirror([mirror_width, mirror_height, mirror_thickness]);
-                }  
-             }
-         }
-         
-         //mirror back 4.1 is a magic number :/
-         translate([back_offset_width, notch_offset_height+4.1, 0]) {
-            color("blue") mirror_round(mirror_back_width, mirror_back_height, mirror_back_thickness, 225, 2);
+            //mirror slot
+            translate([notch_offset_width,notch_offset_height,0]) {
+              mirror([mirror_width, mirror_height, mirror_thickness]);
+            }
+          }
+        }
+
+        //mirror back 4.1 is a magic number :/
+        translate([back_offset_width, notch_offset_height+4.45, 0]) {
+          color("blue") mirror_round(mirror_back_width, mirror_back_height, mirror_back_thickness, 225, 2);
         }
     }
     // cutout - with some magic numbers
-    rotate(45, [1,0,0]) translate([phone_width/2-cutout_width/2,-clip_top_bottom_thickness-4.75,-      clip_top_bottom_thickness-8]) color("green") cube([cutout_width,cutout_length,cutout_thickness]);
-    }
-    // front trim cube
-    translate([-10,20,-phone_thickness]) cube([phone_width+20,phone_length+20,10]);
+    translate([phone_width/2-cutout_width/2,-3,-clip_top_bottom_thickness-1]) color("green") cube([cutout_width,cutout_length,cutout_thickness]);
+  }
+  // front trim cube
+  translate([-10,20,-phone_thickness]) cube([phone_width+20,phone_length+20,10]);
 }
