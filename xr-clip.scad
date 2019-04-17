@@ -1,7 +1,3 @@
-// todo
-// - add experimental offsets (eg slot thickness/width), phone thickness
-// - add notch offset
-
 // Set to 0.01 for higher definition curves (renders slower)
 $fs = 0.1;
 
