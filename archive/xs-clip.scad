@@ -172,6 +172,7 @@ notch_offset_height = notch_height+dfm_notch_offset; //notch height from spec, a
 notch_offset_width = phone_width/2-mirror_width/2;
 back_offset_width = phone_width/2-mirror_back_width/2;
 
+translate([-phone_width/2,-phone_length/2,0]) {
 //trim up top length
 difference() {
   //cutout from slot
@@ -212,3 +213,4 @@ translate([notch_offset_width,notch_offset_height,0]) {
               mirror([mirror_width, mirror_height, mirror_thickness]);
             }
 
+        }
