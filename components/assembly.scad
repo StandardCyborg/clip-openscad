@@ -25,7 +25,7 @@ module generate_assembly(phone_width, phone_length, phone_thickness, phone_edge_
               }
 
               //mirror back 4.1 is a magic number :/
-              translate([back_offset_width, notch_offset_height+4.45, 0]) {
+              translate([back_offset_width, notch_offset_height+4.1, 0]) {
                 color("blue") mirror_round();
               }
           }
