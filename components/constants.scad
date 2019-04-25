@@ -12,9 +12,9 @@ mirror_width = 35.4 + dfm_mirror_width; //from spec -- 36.1 in file?
 
 // clip
 clip_length = 50;
-clip_top_bottom_thickness = 2.5;
+clip_top_bottom_thickness = 2;
 
 // clip cutout
-cutout_width = mirror_width-5;
+cutout_width = mirror_width;
 cutout_length = 16;
 
