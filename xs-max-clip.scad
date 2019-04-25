@@ -94,8 +94,7 @@ difference(){
 
 module phone(phone_width, phone_length, phone_thickness, phone_edge_radius, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius) {
     sphere_size = (phone_thickness/2);
-
-    //color("red") roundedcube2(phone_width, phone_length, phone_thickness, phone_edge_radius);
+    
     //minowski adds spheres around parts, so we need to translate by sphere_size
     translate([sphere_size, sphere_size, sphere_size]) {
         minkowski() {
@@ -105,7 +104,8 @@ module phone(phone_width, phone_length, phone_thickness, phone_edge_radius, came
          }
      }
 
-    translate([phone_width-camera_bump_x_offset-camera_bump_width/2, camera_bump_y_offset/2, phone_thickness-0.1]) {
+    //translate([phone_width-camera_bump_x_offset-camera_bump_width/2, camera_bump_y_offset-camera_bump_y_offset/2, phone_thickness-0.1]) {
+    translate([phone_width-camera_bump_width/2-camera_bump_x_offset, camera_bump_y_offset-camera_bump_length/2, phone_thickness-0.1]) {
         roundedcube2(camera_bump_width, camera_bump_length, camera_bump_thickness+0.1, camera_bump_radius);
     }
 }
@@ -126,20 +126,21 @@ module mirror_round(l,w,h, angle = 225, radius = 5) {
 // all units in mm and degress
 
 //offsets
-phone_thickness_offset = 0.3; // experimentally deduced
+phone_thickness_offset = 0.3;
 camera_bump_offset = 0.1;
 
-// iPhone XR dimensions
-phone_width = 75.72; //from spec
-phone_length = 150.91; //from spec
-phone_thickness = 8.32+phone_thickness_offset; //from spec
+// iPhone Xs dimensions
+phone_width = 77.42; //from spec
+phone_length = 157.53; //from spec
+phone_thickness = 7.7+phone_thickness_offset; //from spec
 phone_edge_radius = 8; // guess
-camera_bump_x_offset = 12.28-camera_bump_offset; //from spec with offset
-camera_bump_y_offset = 12.28-camera_bump_offset; //from spec with offset
-camera_bump_width = 10.93+camera_bump_offset*2; //from spec with offset
-camera_bump_length = 10.93+camera_bump_offset*2; //from spec with offset
+camera_bump_x_offset = 11.82-camera_bump_offset; //from spec with offset
+camera_bump_y_offset = 18.67-camera_bump_offset; //from spec with offset
+camera_bump_width = 11.26+camera_bump_offset*2; //from spec with offset
+camera_bump_length = 24.53+camera_bump_offset*2; //from spec with offset
 camera_bump_thickness = 1.56+1;  //spec 1.56
-camera_bump_radius = camera_bump_length/2; //Xr specific, make it round
+camera_bump_radius = camera_bump_width/2; //Xr specific, make it round
+notch_height = 3.91+4.99;
 
 // DFM experimental offsets
 dfm_mirror_width= 0.7;
@@ -159,7 +160,7 @@ mirror_back_thickness = 2;
 // clip
 clip_width = phone_width*0.66;
 clip_length = 50;
-clip_top_bottom_thickness = 2;
+clip_top_bottom_thickness = 2.5;
 clip_thickness = phone_thickness+(clip_top_bottom_thickness*2);
 
 // clip cutout
@@ -167,56 +168,41 @@ cutout_width = mirror_width-5;
 cutout_length = 16;
 cutout_thickness = clip_thickness/2+5; //2 is just for some clearance
 
-notch_offset_height = 5.57+5.15+dfm_notch_offset; //notch height from spec, add more?
+notch_offset_height = notch_height+dfm_notch_offset; //notch height from spec, add more?
 notch_offset_width = phone_width/2-mirror_width/2;
 back_offset_width = phone_width/2-mirror_back_width/2;
 
+//trim up top length
 difference() {
-    //trim up top length
+  //cutout from slot
     difference() {
-      //cutout from slot
+      //clip with back
+      union() {
+        //resulting clip
         difference() {
-          //clip with back
+          //clip cube
+          translate([phone_width/2-clip_width/2, -clip_top_bottom_thickness, -clip_top_bottom_thickness]) color("red") roundedcube2(clip_width, clip_length, clip_thickness, 5);
+          //phone and mirror back
           union() {
-            //resulting clip
-            difference() {
-              //clip cube
-              translate([phone_width/2-clip_width/2, -clip_top_bottom_thickness, -clip_top_bottom_thickness]) color("red") roundedcube2(clip_width, clip_length, clip_thickness, 5);
-              //phone and mirror back
-              union() {
-                //phone
-                phone(phone_width, phone_length, phone_thickness, phone_edge_radius, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius);
+            //phone
+            phone(phone_width, phone_length, phone_thickness, phone_edge_radius, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius);
 
-                //mirror slot
-                translate([notch_offset_width,notch_offset_height,0]) {
-                  mirror([mirror_width, mirror_height, mirror_thickness]);
-                }
-              }
+            //mirror slot
+            translate([notch_offset_width,notch_offset_height,0]) {
+              mirror([mirror_width, mirror_height, mirror_thickness]);
             }
-
-            //mirror back 4.1 is a magic number :/
-            translate([back_offset_width, notch_offset_height+4.45, 0]) {
-              color("blue") mirror_round(mirror_back_width, mirror_back_height, mirror_back_thickness, 225, 2);
-            }
+          }
         }
-        // cutout - with some magic numbers
-        translate([phone_width/2-cutout_width/2,-3,-clip_top_bottom_thickness-1]) color("green") cube([cutout_width,cutout_length,cutout_thickness]);
-      }
-      // front trim cube
-      translate([-10,20,-phone_thickness]) cube([phone_width+20,phone_length+20,10]);
-    }
 
-    difference() {
-        difference() {
-            translate ([0,4.2,(clip_thickness/2)-clip_top_bottom_thickness]) rotate(90, [0,1,0]) cylinder(phone_width,  clip_thickness/2+20, clip_thickness/2+20);
-            translate ([-1,4.3,(clip_thickness/2)-clip_top_bottom_thickness]) rotate(90, [0,1,
-            0]) cylinder(phone_width+5,  clip_thickness/2, clip_thickness/2);
+        //mirror back 4.1 is a magic number :/
+        translate([back_offset_width, notch_offset_height+4.45, 0]) {
+          color("blue") mirror_round(mirror_back_width, mirror_back_height, mirror_back_thickness, 225, 2);
         }
-        translate ([-1,4.3,-50]) cube([phone_width+7,100,100]);
     }
+    // cutout - with some magic numbers
+    translate([phone_width/2-cutout_width/2,-3,-clip_top_bottom_thickness-1]) color("green") cube([cutout_width,cutout_length,cutout_thickness]);
+  }
+  // front trim cube
+  translate([-10,20,-phone_thickness]) cube([phone_width+20,phone_length+20,10]);
 }
-
-
-phone(phone_width, phone_length, phone_thickness, phone_edge_radius, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius);
-
 
