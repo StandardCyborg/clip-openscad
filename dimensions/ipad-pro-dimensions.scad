@@ -16,9 +16,12 @@ ipad_pro__camera_bump_radius    = ipad_pro__camera_bump_width/2; //Xr specific, 
 // truedepth notch
 ipad_pro__notch_height = 8.7; //ipad's bezel is 8.7. this is a definite guess
 
+ipad_pro__cutout_1_dist = -5;
+ipad_pro__cutout_2_dist = -8.5;
+
 
 // clip
-ipad_pro__clip_width = 45;
+ipad_pro__clip_width = 50;
 ipad_pro__clip_thickness = ipad_pro__phone_thickness+(clip_top_bottom_thickness*2);
 
 // clip cutout

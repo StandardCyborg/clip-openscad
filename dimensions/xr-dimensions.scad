@@ -20,9 +20,13 @@ xr__camera_bump_length    = 10.93+camera_bump_offset*2; //from spec with offset
 xr__camera_bump_thickness = 1.56+1;  //spec 1.56
 xr__camera_bump_radius    = xr__camera_bump_length /2; //Xr specific, make it round
 
-// truedepth notch
-xr__notch_height = 5.57+5.15;
 
+// truedepth notch
+xr__mirror_offset = 0;
+xr__notch_height = 5.57+5.15+xr__mirror_offset;
+
+xr__cutout_1_dist = -3+xr__mirror_offset;
+xr__cutout_2_dist = -7+xr__mirror_offset;
 
 
 

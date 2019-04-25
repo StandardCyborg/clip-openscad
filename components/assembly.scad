@@ -1,4 +1,4 @@
-module generate_assembly(phone_width, phone_length, phone_thickness, phone_edge_radius, rounded_corners, notch_offset_width, notch_offset_height, back_offset_width, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius, clip_width, clip_length, clip_thickness, clip_top_bottom_thickness, cutout_width, cutout_length, cutout_thickness) {
+module generate_assembly(phone_width, phone_length, phone_thickness, phone_edge_radius, rounded_corners, notch_offset_width, notch_offset_height, back_offset_width, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius, clip_width, clip_length, clip_thickness, clip_top_bottom_thickness, cutout_width, cutout_length, cutout_thickness, cutout_1_dist, cutout_2_dist) {
   //trim up front curve
   difference() {
     //trim up top length
@@ -32,10 +32,10 @@ module generate_assembly(phone_width, phone_length, phone_thickness, phone_edge_
 
           small_cutout_width = cutout_width-5;
           // cutout to mirror - with some magic numbers
-          translate([phone_width/2-small_cutout_width/2, -3, -clip_top_bottom_thickness-1]) color("green") cube([small_cutout_width, cutout_length, cutout_thickness]);
+          translate([phone_width/2-small_cutout_width/2, cutout_1_dist, -clip_top_bottom_thickness-1]) color("green") cube([small_cutout_width, cutout_length, cutout_thickness]);
         }
         // cutout2 - trim up interior edges
-        translate([phone_width/2-cutout_width/2, -7, -clip_top_bottom_thickness-1]) color("green") cube([cutout_width, cutout_length, cutout_thickness]);
+        translate([phone_width/2-cutout_width/2, cutout_2_dist, -clip_top_bottom_thickness-1]) color("green") cube([cutout_width, cutout_length, cutout_thickness]);
       }
       // front trim cube
       translate([-10, 20, -phone_thickness]) cube([phone_width+20, phone_length+20, 10]);
