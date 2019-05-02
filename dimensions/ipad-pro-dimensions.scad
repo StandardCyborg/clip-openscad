@@ -5,7 +5,7 @@ ipad_pro__phone_thickness   = 5.9+phone_thickness_offset; //from spec
 ipad_pro__phone_edge_radius = 8; // guess
 ipad_pro__rounded_corners   = false;
 
-// camera bump
+// camera bump (ipad pro doesnt have a camera bump that gets near our clip)
 ipad_pro__camera_bump_x_offset  = 11.82-camera_bump_offset; //from spec with offset
 ipad_pro__camera_bump_y_offset  = 18.67-camera_bump_offset; //from spec with offset
 ipad_pro__camera_bump_width     = 11.26+camera_bump_offset*2; //from spec with offset
@@ -14,9 +14,9 @@ ipad_pro__camera_bump_thickness = 1.56+1;  //spec 1.56
 ipad_pro__camera_bump_radius    = ipad_pro__camera_bump_width/2; //Xr specific, make it round
 
 // truedepth notch
-ipad_pro__notch_height = 8.7; //ipad's bezel is 8.7. this is a definite guess
+ipad_pro__notch_height = 8.7+0.2; //ipad's bezel is 8.7. this is a definite guess, added .2mm to try to not clip the bottom of the screen while scanning
 
-ipad_pro__cutout_1_dist = -5;
+ipad_pro__cutout_1_dist = -4.8; //manually changed for correctness
 ipad_pro__cutout_2_dist = -8.5;
 
 
