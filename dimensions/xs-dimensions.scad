@@ -7,9 +7,9 @@ xs__rounded_corners   = true;
 
 // camera bump
 xs__camera_bump_x_offset  = 11.82-camera_bump_offset; //from spec with offset
-xs__camera_bump_y_offset  = 18.67-camera_bump_offset; //from spec with offset
+xs__camera_bump_y_offset  = 18.67-camera_bump_offset+0.5; //from spec with offset
 xs__camera_bump_width     = 11.26+camera_bump_offset*2; //from spec with offset
-xs__camera_bump_length    = 24.23+camera_bump_offset*2+1+0.5; //from spec with offset, 1 is DFM experimental
+xs__camera_bump_length    = 24.23+camera_bump_offset*2+1; //from spec with offset, 1 is DFM experimental
 xs__camera_bump_thickness = 1.56+1;  //spec 1.56
 xs__camera_bump_radius    = xs__camera_bump_width /2; //Xr specific, make it round
 
@@ -33,3 +33,5 @@ xs__cutout_thickness = xs__clip_thickness/2+5; //2 is just for some clearance
 xs__notch_offset_height = xs__notch_height+dfm_notch_offset; //notch height from spec, add more?
 xs__notch_offset_width = xs__phone_width/2-mirror_width/2;
 xs__back_offset_width = xs__phone_width/2-mirror_back_width/2;
+
+/// v4 went with 0.5mm offset on xs__camera_bump_y_offset
