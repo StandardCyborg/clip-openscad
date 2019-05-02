@@ -1,10 +1,3 @@
-// notes
-// - increase camera bump height by 1mm (guess)
-// - everything else is good
-
-
-
-
 // phone
 xs__phone_width       = 70.94; //from spec
 xs__phone_length      = 143.57; //from spec
@@ -16,7 +9,7 @@ xs__rounded_corners   = true;
 xs__camera_bump_x_offset  = 11.82-camera_bump_offset; //from spec with offset
 xs__camera_bump_y_offset  = 18.67-camera_bump_offset; //from spec with offset
 xs__camera_bump_width     = 11.26+camera_bump_offset*2; //from spec with offset
-xs__camera_bump_length    = 24.23+camera_bump_offset*2+1; //from spec with offset, 1 is DFM experimental
+xs__camera_bump_length    = 24.23+camera_bump_offset*2+1+0.5; //from spec with offset, 1 is DFM experimental
 xs__camera_bump_thickness = 1.56+1;  //spec 1.56
 xs__camera_bump_radius    = xs__camera_bump_width /2; //Xr specific, make it round
 
