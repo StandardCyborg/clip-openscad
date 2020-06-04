@@ -54,5 +54,7 @@ module generate_assembly(phone_width, phone_length, phone_thickness, phone_edge_
 
   }
 
-}
+  // turn on for displaying device with clip
+  //phone(phone_width, phone_length, phone_thickness, phone_edge_radius, rounded_corners, camera_bump_x_offset, camera_bump_y_offset, camera_bump_width, camera_bump_length, camera_bump_thickness, camera_bump_radius);
 
+}
