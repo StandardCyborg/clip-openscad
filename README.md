@@ -66,6 +66,4 @@ Once you have dialed in the dimensions that work well for the device and printin
 - ❌ iPhone 11 Pro Max
 
 ## License
-We release our final clips [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/) in `mirror-clip`.
-
-This repo is © 2020, Standard Cyborg, Inc. Proprietary.
+This repo is released under the MIT license
